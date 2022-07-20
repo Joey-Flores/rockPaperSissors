@@ -1,0 +1,7 @@
+.circle {
+  composes: circle from "./GameSection.module.css";
+}
+
+.paper {
+  composes: paper from "./GameSection.module.css";
+}

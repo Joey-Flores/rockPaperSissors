@@ -1,0 +1,16 @@
+.signUpForm {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.signUpForm .signUpButton {
+  width: 100%;
+  height: 40px;
+  border: none;
+}
+
+.signUpForm input {
+  height: 30px;
+  margin: 5px 0 10px 0;
+}
