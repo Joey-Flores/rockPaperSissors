@@ -1,24 +1,45 @@
+import { useState } from "react";
 import classes from "./LoginForm.module.css";
+import axios from "axios";
 
-function LoginForm() {
+function LoginForm(props) {
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
+
+  const login = (e) => {
+    axios({
+      method: "post",
+      data: { username: username, password: password },
+      withCredentials: true,
+      url: "/login",
+    }).then((res) => console.log(res));
+  };
+
   return (
     <>
       <form className={classes.loginForm}>
-        <h2>Login In</h2>
-        <label htmlFor="email">Email:</label>
-        <input type="email" id="email" placeholder="example@email.com"></input>
-        <label htmlFor="password">Password:</label>
         <input
+          onChange={(e) => {
+            setUsername(e.target.value);
+          }}
+          type="text"
+          id="username"
+          placeholder="Username"
+        ></input>
+        <input
+          onChange={(e) => {
+            setPassword(e.target.value);
+          }}
           type="password"
           id="password"
-          placeholder="must be atleast 3 charecters"
+          placeholder="Password"
         ></input>
         <div className={classes.formButtons}>
-          <button className={classes.loginButton}>Login</button>
-          <button className={classes.signUpButton}>Sign Up</button>
+          <button onClick={login} className={classes.loginButton}>
+            Login
+          </button>
         </div>
       </form>
-      <div onClick={props.handleClick} className={classes.lightBox}></div>
     </>
   );
 }

@@ -13,4 +13,5 @@
 .signUpForm input {
   height: 30px;
   margin: 5px 0 10px 0;
+  border-radius: 5px;
 }

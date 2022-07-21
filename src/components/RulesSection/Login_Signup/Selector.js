@@ -1,9 +1,10 @@
 import styles from "./Selector.module.css";
 
-function Selector() {
+function Selector(props) {
   return (
     <div className={styles.sliderControls}>
       <input
+        onClick={props.handleSelect}
         type="radio"
         name="slider"
         className={styles.radioLogin}
@@ -11,6 +12,7 @@ function Selector() {
         defaultChecked
       ></input>
       <input
+        onClick={props.handleSelect}
         type="radio"
         name="slider"
         className={styles.radioSignup}

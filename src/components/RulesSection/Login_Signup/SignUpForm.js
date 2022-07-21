@@ -6,35 +6,48 @@ import axios from "axios";
 function SignUpForm(props) {
   const [usernameReg, setUsernameReg] = useState("");
   const [passwordReg, setPasswordReg] = useState("");
+  const [confirmPasswordReg, setConfirmPasswordReg] = useState("");
 
-  const register = () => {
-    axios
-      .post("/register", { username: usernameReg, password: passwordReg })
-      .then((res) => {
-        console.log(res);
-      });
+  const register = (e) => {
+    e.preventDefault();
+    if (passwordReg === confirmPasswordReg) {
+      axios({
+        method: "post",
+        data: { username: usernameReg, password: passwordReg },
+        withCredentials: true,
+        url: "/register",
+      }).then((res) => console.log(res));
+    } else {
+      console.log("Passwords not matching");
+    }
   };
 
   return (
     <div>
       <form className={classes.signUpForm}>
-        {/* <label htmlFor="username">Username:</label> */}
         <input
           onChange={(e) => {
             setUsernameReg(e.target.value);
           }}
           type="text"
           id="username"
-          placeholder="Username"
+          placeholder="Enter Username"
         ></input>
-        {/* <label htmlFor="password">Password:</label> */}
         <input
           onChange={(e) => {
             setPasswordReg(e.target.value);
           }}
           type="password"
           id="password"
-          placeholder="Password"
+          placeholder="Enter Password"
+        ></input>
+        <input
+          onChange={(e) => {
+            setConfirmPasswordReg(e.target.value);
+          }}
+          type="password"
+          id="confirmPassword"
+          placeholder="Confirm Password"
         ></input>
         <div className={classes.formButtons}>
           <button onClick={register} className={classes.signUpButton}>

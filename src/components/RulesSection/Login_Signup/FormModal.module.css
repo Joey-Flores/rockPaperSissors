@@ -5,7 +5,7 @@
   left: 5%;
   right: 5%;
   top: 23%;
-  height: 300px;
+  height: 320px;
   background-color: hsl(214, 47%, 43%);
   border-radius: 10px;
   color: #fff;
@@ -44,9 +44,9 @@ h1 {
 
 @media screen and (min-width: 1024px) {
   .formModal {
-    left: 41%;
-    top: 26%;
-    width: fit-content;
+    left: 34%;
+    top: 30%;
+    width: 30%;
   }
 
   .lightBox {
