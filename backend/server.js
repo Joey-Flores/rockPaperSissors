@@ -57,18 +57,24 @@ app.get("/api", (req, res) => {
 });
 
 app.post("/login", async (req, res, next) => {
-  console.log("recieved");
   passport.authenticate("local", (err, user, info) => {
     if (err) throw err;
     if (!user) res.send("No User Exists");
     else {
       req.logIn(user, (err) => {
         if (err) throw err;
-        res.send("Successfully Authenticated");
+        res.send(["Successfully Authenticated", req.user]);
         console.log(req.user);
       });
     }
   })(req, res, next);
+});
+
+app.post("/logout", async (req, res) => {
+  req.logout(function (err) {
+    if (err) throw err;
+    res.send("Logout");
+  });
 });
 
 app.post("/register", async (req, res) => {
@@ -86,7 +92,11 @@ app.post("/register", async (req, res) => {
 
     const user = new User({ username: username, password: hashedPW });
     await user.save();
-    res.send("User Created");
+    req.logIn(user, (err) => {
+      if (err) throw err;
+      res.send(["User Created", req.user]);
+      console.log(req.user);
+    });
   } catch {
     console.log(error);
   }

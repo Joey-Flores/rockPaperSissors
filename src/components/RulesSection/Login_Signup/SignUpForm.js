@@ -16,10 +16,15 @@ function SignUpForm(props) {
         data: { username: usernameReg, password: passwordReg },
         withCredentials: true,
         url: "/register",
-      }).then((res) => console.log(res));
+      }).then(function (res) {
+        if (res.data[0] === "User Created") {
+          props.isLoggedIn();
+        }
+      });
     } else {
       console.log("Passwords not matching");
     }
+    // props.isLoggedIn();
   };
 
   return (

@@ -14,10 +14,15 @@ function FormModal(props) {
   return (
     <>
       <div className={styles.formModal}>
-        <h1>Login Form</h1>
+        {modalFormContent === "login" && <h1>Login Form</h1>}
+        {modalFormContent === "signup" && <h1>SignUp Form</h1>}
         <Selector handleSelect={handleSelect} />
-        {modalFormContent === "login" && <LoginForm />}
-        {modalFormContent === "signup" && <SignUpForm />}
+        {modalFormContent === "login" && (
+          <LoginForm isLoggedIn={props.isLoggedIn} />
+        )}
+        {modalFormContent === "signup" && (
+          <SignUpForm isLoggedIn={props.isLoggedIn} />
+        )}
       </div>
       <div onClick={props.handleClick} className={styles.lightBox}></div>
     </>

@@ -1,19 +1,20 @@
 import { useState } from "react";
+import Account from "./Account";
 import FormModal from "./Login_Signup/FormModal";
 
 import Rules from "./Rules";
 import classes from "./RulesSection.module.css";
 
-function RulesSection() {
+function RulesSection(props) {
   const [isRulesShown, setIsRulesShown] = useState(false);
-  const [isSignUpShown, setIsSignUpShown] = useState(false);
+  const [isAccountShown, setAccountShown] = useState(false);
 
   function handleRulesClick() {
     setIsRulesShown((current) => !current);
   }
 
-  function handleSignUpFormClick() {
-    setIsSignUpShown((current) => !current);
+  function handleAccountClick() {
+    setAccountShown((current) => !current);
   }
 
   return (
@@ -23,13 +24,16 @@ function RulesSection() {
       </button>
       {isRulesShown && <Rules handleClick={handleRulesClick} />}
       <div className={classes.account}>
-        <button
-          onClick={handleSignUpFormClick}
-          className={classes.accountButton}
-        >
-          SIGN UP
+        <button onClick={handleAccountClick} className={classes.accountButton}>
+          ACCOUNT
         </button>
-        {isSignUpShown && <FormModal handleClick={handleSignUpFormClick} />}
+        {isAccountShown && (
+          <Account
+            logStatus={props.logStatus}
+            isLoggedIn={props.isLoggedIn}
+            handleClick={handleAccountClick}
+          />
+        )}
       </div>
     </div>
   );

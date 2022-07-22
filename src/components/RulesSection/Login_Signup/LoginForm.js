@@ -7,12 +7,18 @@ function LoginForm(props) {
   const [password, setPassword] = useState("");
 
   const login = (e) => {
+    e.preventDefault();
     axios({
       method: "post",
       data: { username: username, password: password },
       withCredentials: true,
       url: "/login",
-    }).then((res) => console.log(res));
+    }).then(function (res) {
+      console.log(res.data);
+      if (res.data[0] === "Successfully Authenticated") {
+        props.isLoggedIn();
+      }
+    });
   };
 
   return (

@@ -1,0 +1,27 @@
+.accountBg {
+  position: absolute;
+  left: 0;
+  top: 0;
+  height: 100vh;
+  width: 100vw;
+  background-image: linear-gradient(
+    to bottom,
+    hsl(214, 47%, 23%),
+    hsl(237, 49%, 15%)
+  );
+  z-index: 3;
+}
+
+.accountContainer {
+  padding: 2rem;
+  color: #fff;
+}
+
+.accountContainer h2 {
+  text-align: center;
+  margin: 2rem;
+}
+
+.signup_login_Button {
+  width: 100% !important;
+}
