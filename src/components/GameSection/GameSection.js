@@ -29,6 +29,7 @@ function GameSection(props) {
     props.setGameStatus("");
     setRandomSign("");
     props.helpScore();
+    props.handleStartButton();
   }
 
   async function getRandomSign() {

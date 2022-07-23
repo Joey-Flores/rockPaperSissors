@@ -29,6 +29,8 @@ function RulesSection(props) {
         </button>
         {isAccountShown && (
           <Account
+            userData={props.userData}
+            handleData={props.handleData}
             logStatus={props.logStatus}
             isLoggedIn={props.isLoggedIn}
             handleClick={handleAccountClick}

@@ -15,6 +15,7 @@ function Account(props) {
       <div className={styles.accountContainer}>
         {showModal && (
           <FormModal
+            handleData={props.handleData}
             isLoggedIn={props.isLoggedIn}
             handleClick={handleModalClick}
           />
@@ -31,6 +32,19 @@ function Account(props) {
               SignUp/Login
             </button>
           </>
+        )}
+        {props.logStatus && (
+          <div>
+            <h2>
+              Games Played: <span>{props.userData.stats.totalGames}</span>
+            </h2>
+            <h2>
+              Total Wins: <span>{props.userData.stats.totalWins}</span>
+            </h2>
+            <h2>
+              Games Losses: <span>{props.userData.stats.totalLosses}</span>
+            </h2>
+          </div>
         )}
         {props.logStatus && <Logout isLoggedIn={props.isLoggedIn} />}
       </div>

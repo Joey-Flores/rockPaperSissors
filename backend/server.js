@@ -59,7 +59,7 @@ app.get("/api", (req, res) => {
 app.post("/login", async (req, res, next) => {
   passport.authenticate("local", (err, user, info) => {
     if (err) throw err;
-    if (!user) res.send("No User Exists");
+    if (!user) res.send("No User exists/Incorrect Password");
     else {
       req.logIn(user, (err) => {
         if (err) throw err;
@@ -81,7 +81,6 @@ app.post("/register", async (req, res) => {
   try {
     const username = req.body.username;
     const password = req.body.password;
-    console.log(username, password);
 
     const exists = await User.exists({ username: username });
     if (exists) {

@@ -5,6 +5,7 @@ import axios from "axios";
 function LoginForm(props) {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const [message, setMessage] = useState("");
 
   const login = (e) => {
     e.preventDefault();
@@ -14,9 +15,11 @@ function LoginForm(props) {
       withCredentials: true,
       url: "/login",
     }).then(function (res) {
-      console.log(res.data);
+      setMessage(res.data);
       if (res.data[0] === "Successfully Authenticated") {
         props.isLoggedIn();
+        props.handleData(res.data[1]);
+        props.handleClick();
       }
     });
   };
@@ -40,6 +43,7 @@ function LoginForm(props) {
           id="password"
           placeholder="Password"
         ></input>
+        <p>{message}</p>
         <div className={classes.formButtons}>
           <button onClick={login} className={classes.loginButton}>
             Login

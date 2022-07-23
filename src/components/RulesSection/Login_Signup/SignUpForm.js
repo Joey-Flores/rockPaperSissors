@@ -7,6 +7,7 @@ function SignUpForm(props) {
   const [usernameReg, setUsernameReg] = useState("");
   const [passwordReg, setPasswordReg] = useState("");
   const [confirmPasswordReg, setConfirmPasswordReg] = useState("");
+  const [message, setMessage] = useState("");
 
   const register = (e) => {
     e.preventDefault();
@@ -17,14 +18,16 @@ function SignUpForm(props) {
         withCredentials: true,
         url: "/register",
       }).then(function (res) {
+        setMessage(res.data);
         if (res.data[0] === "User Created") {
           props.isLoggedIn();
+          props.handleData(res.data[1]);
+          props.handleClick();
         }
       });
     } else {
-      console.log("Passwords not matching");
+      setMessage("Passwords not matching");
     }
-    // props.isLoggedIn();
   };
 
   return (
@@ -54,6 +57,7 @@ function SignUpForm(props) {
           id="confirmPassword"
           placeholder="Confirm Password"
         ></input>
+        <p>{message}</p>
         <div className={classes.formButtons}>
           <button onClick={register} className={classes.signUpButton}>
             Sign Up

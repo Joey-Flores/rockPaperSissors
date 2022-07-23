@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import classes from "./App.module.css";
 import GameSection from "./components/GameSection/GameSection";
 import RulesSection from "./components/RulesSection/RulesSection";
@@ -10,6 +10,7 @@ function App() {
   const [gameStatus, setGameStatus] = useState("");
   const [isLoggedIn, setIsLoggedIn] = useState(null);
   const [userData, setUserData] = useState({});
+  const [showStartButton, setShowStartButton] = useState(true);
 
   function helpScore() {
     if (gameStatus === "WIN") {
@@ -23,25 +24,42 @@ function App() {
     setIsLoggedIn((current) => !current);
   }
 
+  function handleData(data) {
+    setUserData(data);
+    console.log(data);
+  }
+
+  function hideStartButton() {
+    setShowStartButton((current) => !current);
+  }
+
   return (
     <div className={classes.App}>
       <TitleSection score={score} />
-      <Link to="/start">
-        <button className={classes.startButton}>START PLAYING</button>
-      </Link>
-      <Routes>
-        <Route
-          path="start"
-          element={
-            <GameSection
-              helpScore={helpScore}
-              gameStatus={gameStatus}
-              setGameStatus={setGameStatus}
-            />
-          }
+      {showStartButton && (
+        <button onClick={hideStartButton} className={classes.startButton}>
+          START PLAYING
+        </button>
+      )}
+      {!showStartButton && isLoggedIn && (
+        <GameSection
+          handleStartButton={hideStartButton}
+          helpScore={helpScore}
+          gameStatus={gameStatus}
+          setGameStatus={setGameStatus}
         />
-      </Routes>
-      <RulesSection logStatus={isLoggedIn} isLoggedIn={handleLoggedInStatus} />
+      )}
+      {!showStartButton && !isLoggedIn && (
+        <h1 className={classes.pleaseLoginText}>
+          Please create an Account or Login to play
+        </h1>
+      )}
+      <RulesSection
+        userData={userData}
+        logStatus={isLoggedIn}
+        isLoggedIn={handleLoggedInStatus}
+        handleData={handleData}
+      />
     </div>
   );
 }

@@ -15,3 +15,9 @@
   margin: 5px 0 10px 0;
   border-radius: 5px;
 }
+
+.signUpForm p {
+  margin: -5px 0 5px 0;
+  color: red;
+  text-align: center;
+}
