@@ -101,6 +101,37 @@ app.post("/register", async (req, res) => {
   }
 });
 
+app.post("/score", async (req, res) => {
+  const result = await req.body.score;
+  const id = await req.body.id;
+  console.log(id);
+  if (result === "WIN") {
+    console.log("you win");
+    await User.findOneAndUpdate(
+      { _id: id },
+      { $inc: { "stats.totalGames": 1, "stats.totalWins": 1 } }
+    );
+  } else if (result === "LOSE") {
+    console.log("you lose");
+    await User.findOneAndUpdate(
+      { _id: id },
+      { $inc: { "stats.totalGames": 1, "stats.totalLosses": 1 } }
+    );
+  } else {
+    console.log("you tied");
+    await User.findOneAndUpdate(
+      { _id: id },
+      { $inc: { "stats.totalGames": 1, "stats.totalTies": 1 } }
+    );
+  }
+  res.send("game counted");
+  console.log(req.body);
+});
+
+app.get("/account", (req, res) => {
+  res.send(req.user);
+});
+
 app.listen(PORT, () => {
   console.log(`listening on port ${PORT}`);
 });

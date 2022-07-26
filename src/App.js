@@ -4,6 +4,7 @@ import GameSection from "./components/GameSection/GameSection";
 import RulesSection from "./components/RulesSection/RulesSection";
 import TitleSection from "./components/TitleSection/TitleSection";
 import { Routes, Route, Link } from "react-router-dom";
+import axios from "axios";
 
 function App() {
   const [score, setScore] = useState(0);
@@ -18,6 +19,17 @@ function App() {
     } else if (gameStatus === "LOSE" && score > 0) {
       setScore(0);
     }
+  }
+
+  function sendResults() {
+    console.log(userData._id);
+    axios({
+      method: "post",
+      data: { score: gameStatus, id: userData._id },
+      withCredentials: true,
+      url: "/score",
+    }).then((res) => console.log(res));
+    setGameStatus("");
   }
 
   function handleLoggedInStatus() {
@@ -43,10 +55,12 @@ function App() {
       )}
       {!showStartButton && isLoggedIn && (
         <GameSection
+          sendResults={sendResults}
           handleStartButton={hideStartButton}
           helpScore={helpScore}
           gameStatus={gameStatus}
           setGameStatus={setGameStatus}
+          userData={userData}
         />
       )}
       {!showStartButton && !isLoggedIn && (

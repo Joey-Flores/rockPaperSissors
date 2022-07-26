@@ -59,6 +59,11 @@ function GameSection(props) {
     }
   }
 
+  function handleSubmitButton() {
+    handleSelect();
+    props.sendResults();
+  }
+
   return (
     <div className={classes.gameSectionContainer}>
       {!showSelected && (
@@ -88,13 +93,13 @@ function GameSection(props) {
             {randomSign === "rock" && <Rock />}
           </div>
           <div className={classes.bottomRowText}>
-            <p>YOU PICKED</p>
+            <p>{props.userData.username.toUpperCase()} PICKED</p>
             <p>THE HOUSE PICKED</p>
           </div>
           {randomSign && (
             <div className={classes.bottomRowDecision}>
               <h1>YOU {props.gameStatus}</h1>
-              <button onClick={handleSelect}>PLAY AGAIN</button>
+              <button onClick={handleSubmitButton}>PLAY AGAIN</button>
             </div>
           )}
         </>

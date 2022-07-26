@@ -6,7 +6,7 @@ import Logout from "./Login_Signup/Logout";
 function Account(props) {
   const [showModal, setShowModal] = useState(false);
 
-  function handleModalClick(props) {
+  function handleModalClick() {
     setShowModal((current) => !current);
   }
 
@@ -18,6 +18,7 @@ function Account(props) {
             handleData={props.handleData}
             isLoggedIn={props.isLoggedIn}
             handleClick={handleModalClick}
+            handleAccountClick={props.handleClick}
           />
         )}
         <button onClick={props.handleClick}>Back</button>
@@ -42,7 +43,10 @@ function Account(props) {
               Total Wins: <span>{props.userData.stats.totalWins}</span>
             </h2>
             <h2>
-              Games Losses: <span>{props.userData.stats.totalLosses}</span>
+              Total Losses: <span>{props.userData.stats.totalLosses}</span>
+            </h2>
+            <h2>
+              Total Tied: <span>{props.userData.stats.totalTies}</span>
             </h2>
           </div>
         )}

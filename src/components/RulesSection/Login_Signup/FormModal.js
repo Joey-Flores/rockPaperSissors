@@ -22,6 +22,7 @@ function FormModal(props) {
             handleData={props.handleData}
             handleClick={props.handleClick}
             isLoggedIn={props.isLoggedIn}
+            handleAccountClick={props.handleAccountClick}
           />
         )}
         {modalFormContent === "signup" && (
@@ -29,6 +30,7 @@ function FormModal(props) {
             handleData={props.handleData}
             handleClick={props.handleClick}
             isLoggedIn={props.isLoggedIn}
+            handleAccountClick={props.handleAccountClick}
           />
         )}
       </div>

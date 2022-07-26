@@ -1,13 +1,14 @@
 import { useState } from "react";
 import Account from "./Account";
-import FormModal from "./Login_Signup/FormModal";
 
 import Rules from "./Rules";
 import classes from "./RulesSection.module.css";
+import axios from "axios";
 
 function RulesSection(props) {
   const [isRulesShown, setIsRulesShown] = useState(false);
   const [isAccountShown, setAccountShown] = useState(false);
+  const [updatedUserData, setUpdatedUserData] = useState(props.userData);
 
   function handleRulesClick() {
     setIsRulesShown((current) => !current);
@@ -15,6 +16,13 @@ function RulesSection(props) {
 
   function handleAccountClick() {
     setAccountShown((current) => !current);
+    axios({
+      method: "get",
+      withCredentials: true,
+      url: "/account",
+    }).then((res) => setUpdatedUserData(res.data));
+    console.log(props.userData);
+    console.log(updatedUserData);
   }
 
   return (
@@ -29,7 +37,7 @@ function RulesSection(props) {
         </button>
         {isAccountShown && (
           <Account
-            userData={props.userData}
+            userData={updatedUserData}
             handleData={props.handleData}
             logStatus={props.logStatus}
             isLoggedIn={props.isLoggedIn}

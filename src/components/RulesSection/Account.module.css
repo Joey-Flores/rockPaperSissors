@@ -27,3 +27,10 @@
 .signup_login_Button {
   width: 100% !important;
 }
+
+@media screen and (min-width: 1024px) {
+  .signup_login_Button {
+    width: 35% !important;
+    align-self: center;
+  }
+}

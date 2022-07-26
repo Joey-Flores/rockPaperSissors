@@ -20,6 +20,7 @@ function LoginForm(props) {
         props.isLoggedIn();
         props.handleData(res.data[1]);
         props.handleClick();
+        props.handleAccountClick();
       }
     });
   };

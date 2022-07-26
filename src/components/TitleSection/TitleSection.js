@@ -9,7 +9,7 @@ function TitleSection(props) {
         <h2>SCISSORS</h2>
       </div>
       <div className={classes.score}>
-        <p>SCORE</p>
+        <p>WIN STREAK</p>
         <span>{props.score}</span>
       </div>
     </div>

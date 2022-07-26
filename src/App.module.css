@@ -35,8 +35,12 @@
 .pleaseLoginText {
   color: #fff;
 }
+
 @media screen and (min-width: 1024px) {
   .App {
     align-items: center;
+  }
+  .startButton {
+    width: 35%;
   }
 }
