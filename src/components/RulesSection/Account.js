@@ -36,21 +36,44 @@ function Account(props) {
         )}
         {props.logStatus && (
           <div>
+            <h1>{props.userData.username}'s stats</h1>
             <h2>
-              Games Played: <span>{props.userData.stats.totalGames}</span>
+              Games Played:{" "}
+              <span>
+                {props.userData.stats === undefined
+                  ? 0
+                  : props.userData.stats.totalGames}
+              </span>
             </h2>
             <h2>
-              Total Wins: <span>{props.userData.stats.totalWins}</span>
+              Total Wins:{" "}
+              <span>
+                {props.userData.stats === undefined
+                  ? 0
+                  : props.userData.stats.totalWins}
+              </span>
             </h2>
             <h2>
-              Total Losses: <span>{props.userData.stats.totalLosses}</span>
+              Total Losses:{" "}
+              <span>
+                {props.userData.stats === undefined
+                  ? 0
+                  : props.userData.stats.totalLosses}
+              </span>
             </h2>
             <h2>
-              Total Tied: <span>{props.userData.stats.totalTies}</span>
+              Total Tied:{" "}
+              <span>
+                {props.userData.stats === undefined
+                  ? 0
+                  : props.userData.stats.totalTies}
+              </span>
             </h2>
           </div>
         )}
-        {props.logStatus && <Logout isLoggedIn={props.isLoggedIn} />}
+        {props.logStatus && (
+          <Logout isLoggedIn={props.isLoggedIn} handleData={props.handleData} />
+        )}
       </div>
     </div>
   );

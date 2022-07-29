@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import classes from "./App.module.css";
 import GameSection from "./components/GameSection/GameSection";
 import RulesSection from "./components/RulesSection/RulesSection";
@@ -9,9 +9,28 @@ import axios from "axios";
 function App() {
   const [score, setScore] = useState(0);
   const [gameStatus, setGameStatus] = useState("");
-  const [isLoggedIn, setIsLoggedIn] = useState(null);
   const [userData, setUserData] = useState({});
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [showStartButton, setShowStartButton] = useState(true);
+
+  useEffect(() => {
+    if (Object.keys(userData).length == 0) {
+      setIsLoggedIn(false);
+      console.log("false");
+    } else if (Object.keys(userData).length > 0) {
+      setIsLoggedIn(true);
+      console.log("true");
+    }
+    console.log(Object.keys(userData).length, userData);
+  });
+
+  useEffect(() => {
+    axios({
+      method: "get",
+      withCredentials: true,
+      url: "/account",
+    }).then((res) => setUserData(res.data));
+  }, []);
 
   function helpScore() {
     if (gameStatus === "WIN") {
@@ -22,9 +41,8 @@ function App() {
   }
 
   function sendResults() {
-    console.log(userData._id);
     axios({
-      method: "post",
+      method: "POST",
       data: { score: gameStatus, id: userData._id },
       withCredentials: true,
       url: "/score",
@@ -38,7 +56,6 @@ function App() {
 
   function handleData(data) {
     setUserData(data);
-    console.log(data);
   }
 
   function hideStartButton() {
@@ -72,6 +89,7 @@ function App() {
         userData={userData}
         logStatus={isLoggedIn}
         isLoggedIn={handleLoggedInStatus}
+        isLoggedInStatus={isLoggedIn}
         handleData={handleData}
       />
     </div>

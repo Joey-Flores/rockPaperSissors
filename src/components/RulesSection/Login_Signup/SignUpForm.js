@@ -13,7 +13,7 @@ function SignUpForm(props) {
     e.preventDefault();
     if (passwordReg === confirmPasswordReg) {
       axios({
-        method: "post",
+        method: "POST",
         data: { username: usernameReg, password: passwordReg },
         withCredentials: true,
         url: "/register",

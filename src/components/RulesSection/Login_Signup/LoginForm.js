@@ -10,17 +10,17 @@ function LoginForm(props) {
   const login = (e) => {
     e.preventDefault();
     axios({
-      method: "post",
+      method: "POST",
       data: { username: username, password: password },
       withCredentials: true,
       url: "/login",
-    }).then(function (res) {
+    }).then(async function (res) {
       setMessage(res.data);
       if (res.data[0] === "Successfully Authenticated") {
         props.isLoggedIn();
         props.handleData(res.data[1]);
-        props.handleClick();
         props.handleAccountClick();
+        props.handleClick();
       }
     });
   };

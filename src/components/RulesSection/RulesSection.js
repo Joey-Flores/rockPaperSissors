@@ -14,15 +14,15 @@ function RulesSection(props) {
     setIsRulesShown((current) => !current);
   }
 
-  function handleAccountClick() {
+  async function handleAccountClick() {
+    if (props.logStatus === true) {
+      await axios({
+        method: "get",
+        withCredentials: true,
+        url: "/account",
+      }).then((res) => setUpdatedUserData(res.data));
+    }
     setAccountShown((current) => !current);
-    axios({
-      method: "get",
-      withCredentials: true,
-      url: "/account",
-    }).then((res) => setUpdatedUserData(res.data));
-    console.log(props.userData);
-    console.log(updatedUserData);
   }
 
   return (

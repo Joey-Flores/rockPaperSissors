@@ -20,15 +20,15 @@ module.exports = function (passport) {
     })
   );
 
-  passport.serializeUser((user, cb) => {
-    cb(null, user.id);
+  passport.serializeUser((user, done) => {
+    done(null, user.id);
   });
-  passport.deserializeUser((id, cb) => {
+  passport.deserializeUser((id, done) => {
     User.findOne({ _id: id }, (err, user) => {
       // const userInformation = {
       //   username: user.username, // Select certain data to be send to the front end
       // };
-      cb(err, user);
+      done(err, user);
     });
   });
 };

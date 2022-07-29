@@ -8,6 +8,7 @@ function Logout(props) {
       url: "/logout",
     }).then((res) => console.log(res));
     props.isLoggedIn();
+    props.handleData({});
   }
 
   return <button onClick={logout}>Logout</button>;

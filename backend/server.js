@@ -6,13 +6,14 @@ const LocalStrategy = require("passport-local").Strategy;
 const session = require("express-session");
 const cookieParser = require("cookie-parser");
 const bodyParser = require("body-parser");
+const MongoStore = require("connect-mongo");
+const app = express();
+
+const User = require("./models/user");
 
 //Mongodb
 const mongoose = require("mongoose");
 const PORT = process.env.PORT || 3001;
-const app = express();
-
-const User = require("./models/user");
 
 const dbUrl =
   process.env.DB_USER || "mongodb://localhost:27017/rock_paper_scissors";
@@ -27,6 +28,20 @@ mongoose
     console.log(e);
   });
 
+const secret = process.env.SECRET || "thisisasecret";
+
+const store = MongoStore.create({
+  mongoUrl: dbUrl,
+  crypto: {
+    secret,
+  },
+  touchAfter: 24 * 60 * 60, //This is a lazy session update
+});
+
+store.on("error", function (e) {
+  console.log("SESSION STORE ERROR!", e);
+});
+
 //Middleware
 
 // app.use(express.json());
@@ -38,23 +53,28 @@ app.use(
     credentials: true,
   })
 );
+
 app.use(
   session({
-    secret: process.env.SESSION_SECRET || "secret",
-    resave: false,
+    // store,
+    secret: secret,
+    resave: true,
     saveUninitialized: true,
+    cookie: {
+      // httpOnly: true, // This makes our cookie only accessable thorugh http NOT javascript
+      // secure: true, // only works over a https connection, SHOULD BE ENABLED when site is live. ***********
+      expires: Date.now() + 1000 * 60 * 60 * 24 * 7, // Since date.now() returns miliseconds, we need to calculate how many miliseconds are in a week. Because that is when we want this cookie to expire
+      maxAge: 1000 * 60 * 60 * 24 * 7,
+    },
   })
 );
-app.use(cookieParser(process.env.SESSION_SECRET || "secret"));
+
+app.use(cookieParser(secret));
 
 //Passport
 app.use(passport.initialize());
 app.use(passport.session());
 require("./passportConfig")(passport);
-
-app.get("/api", (req, res) => {
-  res.json({ message: "Test" });
-});
 
 app.post("/login", async (req, res, next) => {
   passport.authenticate("local", (err, user, info) => {
@@ -64,7 +84,8 @@ app.post("/login", async (req, res, next) => {
       req.logIn(user, (err) => {
         if (err) throw err;
         res.send(["Successfully Authenticated", req.user]);
-        console.log(req.user);
+        // req.session.name = req.cookies;
+        // console.log(req.cookies.connect.sid);
       });
     }
   })(req, res, next);

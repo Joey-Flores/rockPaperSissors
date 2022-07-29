@@ -93,7 +93,8 @@ function GameSection(props) {
             {randomSign === "rock" && <Rock />}
           </div>
           <div className={classes.bottomRowText}>
-            <p>{props.userData.username.toUpperCase()} PICKED</p>
+            {/* <p>{props.userData.username.toUpperCase()} PICKED</p> */}
+            <p>Test PICKED</p>
             <p>THE HOUSE PICKED</p>
           </div>
           {randomSign && (
