@@ -16,10 +16,20 @@ const mongoose = require("mongoose");
 const PORT = process.env.PORT || 3001;
 
 const dbUrl =
-  process.env.DB_USER || "mongodb://localhost:27017/rock_paper_scissors";
+  process.env.DB_USER ||
+  "mongodb+srv://admin:OGIpUCzIZZ7Bzdg8@cluster0.aeglo.mongodb.net/?retryWrites=true&w=majority";
 
 mongoose
-  .connect(dbUrl)
+  .connect(
+    dbUrl,
+    {
+      useNewUrlParser: true,
+      useUnifiedTopology: true,
+    }
+    // () => {
+    //   console.log("Mongoose Is Connected");
+    // }
+  )
   .then(() => {
     console.log("Mongo Connection Open!");
   })
@@ -28,19 +38,17 @@ mongoose
     console.log(e);
   });
 
+// mongoose
+//   .connect(dbUrl)
+//   .then(() => {
+//     console.log("Mongo Connection Open!");
+//   })
+//   .catch((e) => {
+//     console.log("THERE WAS A MONGO CONNECTION ERROR");
+//     console.log(e);
+//   });
+
 const secret = process.env.SECRET || "thisisasecret";
-
-const store = MongoStore.create({
-  mongoUrl: dbUrl,
-  crypto: {
-    secret,
-  },
-  touchAfter: 24 * 60 * 60, //This is a lazy session update
-});
-
-store.on("error", function (e) {
-  console.log("SESSION STORE ERROR!", e);
-});
 
 //Middleware
 
@@ -146,7 +154,6 @@ app.post("/score", async (req, res) => {
     );
   }
   res.send("game counted");
-  console.log(req.body);
 });
 
 app.get("/account", (req, res) => {

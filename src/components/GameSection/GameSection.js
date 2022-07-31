@@ -20,7 +20,7 @@ function GameSection(props) {
     setShowSelected((current) => !current);
     props.setGameStatus("");
     setRandomSign("");
-    props.helpScore();
+    // props.helpScore();
     await getRandomSign();
   }
 
@@ -93,8 +93,7 @@ function GameSection(props) {
             {randomSign === "rock" && <Rock />}
           </div>
           <div className={classes.bottomRowText}>
-            {/* <p>{props.userData.username.toUpperCase()} PICKED</p> */}
-            <p>Test PICKED</p>
+            <p>{props.userData.username.toUpperCase()} PICKED</p>
             <p>THE HOUSE PICKED</p>
           </div>
           {randomSign && (

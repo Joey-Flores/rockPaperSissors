@@ -37,6 +37,7 @@ function Account(props) {
         {props.logStatus && (
           <div>
             <h1>{props.userData.username}'s stats</h1>
+            {console.log(props.userData)}
             <h2>
               Games Played:{" "}
               <span>

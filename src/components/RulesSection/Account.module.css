@@ -17,6 +17,8 @@
   color: #fff;
   display: flex;
   flex-direction: column;
+  height: 80%;
+  justify-content: space-between;
 }
 
 .accountContainer h2 {

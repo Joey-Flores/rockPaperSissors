@@ -3,7 +3,6 @@
   margin-top: 5rem;
   flex-direction: column;
   height: 450px;
-  max-width: 400px;
 }
 
 .gameSectionContainer .circle {
@@ -111,7 +110,7 @@
 
 @media screen and (min-width: 1024px) {
   .gameSectionContainer {
-    width: 550px;
+    width: 475px;
   }
 
   .gameSectionContainer .circle {

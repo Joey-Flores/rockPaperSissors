@@ -9,6 +9,7 @@ const UserSchema = new Schema({
     totalWins: { type: Number, default: 0 },
     totalLosses: { type: Number, default: 0 },
     totalTies: { type: Number, default: 0 },
+    // winStreak: { type: Number, default: 0 },
   },
 });
 

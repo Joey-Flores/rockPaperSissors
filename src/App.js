@@ -3,7 +3,6 @@ import classes from "./App.module.css";
 import GameSection from "./components/GameSection/GameSection";
 import RulesSection from "./components/RulesSection/RulesSection";
 import TitleSection from "./components/TitleSection/TitleSection";
-import { Routes, Route, Link } from "react-router-dom";
 import axios from "axios";
 
 function App() {
@@ -14,14 +13,11 @@ function App() {
   const [showStartButton, setShowStartButton] = useState(true);
 
   useEffect(() => {
-    if (Object.keys(userData).length == 0) {
+    if (Object.keys(userData).length === 0) {
       setIsLoggedIn(false);
-      console.log("false");
     } else if (Object.keys(userData).length > 0) {
       setIsLoggedIn(true);
-      console.log("true");
     }
-    console.log(Object.keys(userData).length, userData);
   });
 
   useEffect(() => {
@@ -32,7 +28,7 @@ function App() {
     }).then((res) => setUserData(res.data));
   }, []);
 
-  function helpScore() {
+  async function helpScore() {
     if (gameStatus === "WIN") {
       setScore((prev) => prev + 1);
     } else if (gameStatus === "LOSE" && score > 0) {
