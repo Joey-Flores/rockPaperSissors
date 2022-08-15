@@ -13,7 +13,6 @@ function LoginForm(props) {
       method: "POST",
       data: { username: username, password: password },
       withCredentials: true,
-      baseURL: "https://evening-shore-30877.herokuapp.com/",
       url: "/login",
     }).then(async function (res) {
       setMessage(res.data);

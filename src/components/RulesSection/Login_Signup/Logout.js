@@ -5,7 +5,6 @@ function Logout(props) {
     axios({
       method: "post",
       withCredentials: true,
-      baseURL: "https://evening-shore-30877.herokuapp.com/",
       url: "/logout",
     }).then((res) => console.log(res));
     props.isLoggedIn();
