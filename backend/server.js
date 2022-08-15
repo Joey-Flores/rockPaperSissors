@@ -11,14 +11,6 @@ const app = express();
 
 const User = require("./models/user");
 
-if (process.NODE_ENV == "production") {
-  app.use(express.static("client/build"));
-  const path = require("path");
-  app.get("*", (req, res) => {
-    res.sendFile(path.resolve(__dirname, "client", "build", "index.html"));
-  });
-}
-
 //Mongodb
 const mongoose = require("mongoose");
 const PORT = process.env.PORT || 5000;
@@ -173,6 +165,13 @@ app.get("/account", (req, res) => {
 //   res.sendFile(path.join(__dirname, "../build"));
 // });
 
+if (process.NODE_ENV == "production") {
+  app.use(express.static("client/build"));
+  const path = require("path");
+  app.get("*", (req, res) => {
+    res.sendFile(path.resolve(__dirname, "client", "build", "index.html"));
+  });
+}
 app.listen(PORT, () => {
   console.log(`listening on port ${PORT}`);
 });
