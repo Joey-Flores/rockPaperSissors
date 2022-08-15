@@ -19,6 +19,7 @@ function RulesSection(props) {
       await axios({
         method: "get",
         withCredentials: true,
+        baseURL: "https://evening-shore-30877.herokuapp.com/",
         url: "/account",
       }).then((res) => setUpdatedUserData(res.data));
     }
