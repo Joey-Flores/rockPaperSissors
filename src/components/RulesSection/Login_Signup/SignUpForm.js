@@ -16,6 +16,7 @@ function SignUpForm(props) {
         method: "POST",
         data: { username: usernameReg, password: passwordReg },
         withCredentials: true,
+        baseURL: "https://evening-shore-30877.herokuapp.com/",
         url: "/register",
       }).then(function (res) {
         setMessage(res.data);
