@@ -160,11 +160,6 @@ app.get("/account", (req, res) => {
   res.send(req.user);
 });
 
-// app.use(express.static(path.join(__dirname, "../build")));
-// app.get("*", (req, res) => {
-//   res.sendFile(path.join(__dirname, "../build"));
-// });
-
 if (process.NODE_ENV == "production") {
   app.use(express.static("client/build"));
   const path = require("path");
