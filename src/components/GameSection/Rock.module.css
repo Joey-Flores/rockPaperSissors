@@ -1,7 +1,0 @@
-.circle {
-  composes: circle from "./GameSection.module.css";
-}
-
-.rock {
-  composes: rock from "./GameSection.module.css";
-}
